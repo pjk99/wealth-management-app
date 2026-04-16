@@ -33,4 +33,9 @@ public class FinancialAccount {
     @JoinColumn(name = "household_id")
     @JsonIgnore
     private Household household;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    @JsonIgnore
+    private Member member;
 }

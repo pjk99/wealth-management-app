@@ -17,5 +17,4 @@ public class HouseholdResponse {
     private Double netWorth;
 
     private List<MemberSummary> members;
-    private List<AccountSummary> accounts;
 }

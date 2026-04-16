@@ -8,7 +8,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class AccountSummary {
+
     private Long id;
+    private String accountNumber;
     private String accountType;
+    private String custodian;
+
     private Double accountValue;
+    private Double ownershipPercentage;
 }

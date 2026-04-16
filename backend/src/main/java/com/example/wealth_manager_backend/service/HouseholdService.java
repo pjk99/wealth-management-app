@@ -9,6 +9,8 @@ import com.example.wealth_manager_backend.dto.HouseholdRequest;
 import com.example.wealth_manager_backend.dto.HouseholdResponse;
 import com.example.wealth_manager_backend.dto.MemberSummary;
 import com.example.wealth_manager_backend.entity.Household;
+import com.example.wealth_manager_backend.entity.Member;
+import com.example.wealth_manager_backend.entity.FinancialAccount;
 import com.example.wealth_manager_backend.repository.HouseholdRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,30 +24,43 @@ public class HouseholdService {
     private HouseholdResponse toHouseholdResponse(Household h) {
 
         List<MemberSummary> members = h.getMembers()
-            .stream()
-            .map(m -> new MemberSummary(
-                    m.getId(),
-                    m.getName(),
-                    m.getRelationship()
-            ))
-            .toList();
-
-        List<AccountSummary> accounts = h.getAccounts()
-            .stream()
-            .map(a -> new AccountSummary(
-                    a.getId(),
-                    a.getAccountType(),
-                    a.getAccountValue()
-            ))
-            .toList();
+                .stream()
+                .map(this::toMemberSummary)
+                .toList();
 
         return new HouseholdResponse(
                 h.getId(),
                 h.getName(),
                 h.getIncome(),
                 h.getNetWorth(),
-                members,
+                members
+        );
+    }
+
+    private MemberSummary toMemberSummary(Member m) {
+
+        List<AccountSummary> accounts = m.getAccounts()
+                .stream()
+                .map(this::toAccountSummary)
+                .toList();
+
+        return new MemberSummary(
+                m.getId(),
+                m.getName(),
+                m.getRelationship(),
                 accounts
+        );
+    }
+
+    private AccountSummary toAccountSummary(FinancialAccount a) {
+
+        return new AccountSummary(
+                a.getId(),
+                a.getAccountNumber(),
+                a.getAccountType(),
+                a.getCustodian(),
+                a.getAccountValue(),
+                a.getOwnershipPercentage()
         );
     }
 
@@ -74,7 +89,6 @@ public class HouseholdService {
         }
 
     Household updated = householdRepository.save(h);
-    System.out.println(toHouseholdResponse(updated));
 
     return toHouseholdResponse(updated);
 }
@@ -92,5 +106,5 @@ public class HouseholdService {
             .map(this::toHouseholdResponse)
             .toList();
     }
-    
+
 }

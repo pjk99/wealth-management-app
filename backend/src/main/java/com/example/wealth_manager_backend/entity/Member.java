@@ -1,6 +1,7 @@
 package com.example.wealth_manager_backend.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,4 +37,7 @@ public class Member {
     @JoinColumn(name = "household_id")
     @JsonIgnore
     private Household household;
+
+    @OneToMany(mappedBy = "member")
+    private List<FinancialAccount> accounts;
 }

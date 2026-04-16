@@ -13,17 +13,17 @@ import com.example.wealth_manager_backend.service.FinancialAccountService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/households")
+@RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class FinancialAccountController {
 
     private final FinancialAccountService accountService;
 
-    @PostMapping("/{householdId}/accounts")
+    @PostMapping("/{memberId}/accounts")
     public FinancialAccount addAccount(
-            @PathVariable Long householdId,
+            @PathVariable Long memberId,
             @RequestBody FinancialAccountRequest request) {
 
-        return accountService.addAccount(householdId, request);
+        return accountService.addAccount(memberId, request);
     }
 }

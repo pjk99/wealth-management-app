@@ -8,5 +8,7 @@ import lombok.Setter;
 public class FinancialAccountRequest {
     private String accountNumber;
     private String accountType;
+    private String custodian;
     private Double accountValue;
+    private Double ownershipPercentage;
 }
