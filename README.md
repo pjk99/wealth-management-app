@@ -9,6 +9,6 @@ wealth-manager-app/
 ├── backend/                  # Java Spring Boot
 ├── ai-service/               # Python FastAPI
 ├── infrastructure/           # Docker + infra configs
-├── shared/                   # Shared contracts (VERY IMPORTANT)
+├── shared/                   # Shared contracts
 └── README.md
 ```
